@@ -1,30 +1,52 @@
-import express from 'express';
+import express from "express"
+import { Request, Response } from "express"
+import { User } from "./entity/User/user.entity.js"
+import { myDataSource } from "./utils/appDataSource.js"
 
-const app = express();
+// establish database connection
+myDataSource
+    .initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!")
+    })
+    .catch((err) => {
+        console.error("Error during Data Source initialization:", err)
+    })
 
-app.get('/', (req, res) => {
-  res.send('Express + TypeScript Server');
-});
-app.get("/users",  (req, res) =>{
-  // here we will have logic to return all users
+const app = express()
+app.use(express.json())
+
+app.get("/users", async function (req: Request, res: Response) {
+    const users = await myDataSource.getRepository(User).find()
+    res.json(users)
 })
 
-app.get("/users/:id", (req, res) =>{
-  // here we will have logic to return user by id
+app.get("/users/:id", async function (req: Request, res: Response) {
+    const results = await myDataSource.getRepository(User).findOneBy({
+        id: parseInt(req.params.id),
+    })
+    return res.send(results)
 })
 
-app.post("/users", (req, res) =>{
-  // here we will have logic to save a user
+app.post("/users", async function (req: Request, res: Response) {
+    const user = await myDataSource.getRepository(User).create(req.body)
+    const results = await myDataSource.getRepository(User).save(user)
+    return res.send(results)
 })
 
-app.put("/users/:id", (req, res) =>{
-  // here we will have logic to update a user by a given user id
+app.put("/users/:id", async function (req: Request, res: Response) {
+    const user = await myDataSource.getRepository(User).findOneBy({
+        id: parseInt(req.params.id),
+    })
+    myDataSource.getRepository(User).merge(user!, req.body)
+    const results = await myDataSource.getRepository(User).save(user!)
+    return res.send(results)
 })
 
-app.delete("/users/:id", (req, res) =>{
-  // here we will have logic to delete a user by a given user id
+app.delete("/users/:id", async function (req: Request, res: Response) {
+    const results = await myDataSource.getRepository(User).delete(req.params.id)
+    return res.send(results)
 })
 
-app.listen(5000, () => {
-  console.log(`[server]: Server is running at http://localhost:5000`);
-});
+// start express server
+app.listen(5000)

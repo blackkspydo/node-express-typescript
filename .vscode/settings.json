@@ -2,10 +2,18 @@
     "sqltools.useNodeRuntime": true,
     "sqltools.connections": [
         {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
             "previewLimit": 50,
-            "driver": "SQLite",
-            "database": "${workspaceFolder:node-express-typescript}/prisma/shop.db",
-            "name": "shop"
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "shop",
+            "database": "nodePractice",
+            "username": "blackkspydo",
+            "password": "0897",
+            "socketPath": "/var/run/mysqld/mysqld.sock"
         }
     ]
 }

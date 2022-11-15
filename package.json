@@ -2,8 +2,8 @@
   "name": "express-typescript",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "dist/index.js",
+  "type": "module",
   "moduleResolution": "node",
   "scripts": {
     "build": "npx tsc",
@@ -33,9 +33,7 @@
   "paths": {
     "@/*": [
       "src/*"
-    ],
-    "dotenv": [
-      "node_modules/dotenv/lib/main.js"
     ]
+    
   }
 }
