@@ -1,1 +1,4 @@
 node_modules
+shop.db
+*.session.sql
+.env
