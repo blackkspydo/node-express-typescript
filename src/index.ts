@@ -1,6 +1,8 @@
+import { profile } from "console";
 import express from "express"
 import { Request, Response } from "express"
-import { User } from "./entity/User/user.entity.js"
+import { Profile } from "./entity/profile.entity.js";
+import { User } from "./entity/user.entity.js"
 import { myDataSource } from "./utils/appDataSource.js"
 
 // establish database connection
@@ -23,20 +25,35 @@ app.get("/users", async function (req: Request, res: Response) {
 
 app.get("/users/:id", async function (req: Request, res: Response) {
     const results = await myDataSource.getRepository(User).findOneBy({
-        id: parseInt(req.params.id),
+        id: req.params.id,
     })
     return res.send(results)
 })
 
 app.post("/users", async function (req: Request, res: Response) {
+    try{
     const user = await myDataSource.getRepository(User).create(req.body)
     const results = await myDataSource.getRepository(User).save(user)
     return res.send(results)
+    }catch(err){
+        console.error(err)
+        return res.send(err)
+    }
+})
+app.post("/profile", async function (req: Request, res: Response) {
+    try{
+    const profile = await myDataSource.getRepository(Profile).create(req.body)
+    const results = await myDataSource.getRepository(Profile).save(profile)
+    return res.send(results)
+    }catch(err){
+        console.error(err)
+        return res.send(err)
+    }
 })
 
 app.put("/users/:id", async function (req: Request, res: Response) {
     const user = await myDataSource.getRepository(User).findOneBy({
-        id: parseInt(req.params.id),
+        id: req.params.id,
     })
     myDataSource.getRepository(User).merge(user!, req.body)
     const results = await myDataSource.getRepository(User).save(user!)
@@ -48,5 +65,4 @@ app.delete("/users/:id", async function (req: Request, res: Response) {
     return res.send(results)
 })
 
-// start express server
 app.listen(5000)
