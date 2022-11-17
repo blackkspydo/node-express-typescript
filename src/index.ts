@@ -1,4 +1,4 @@
-import { profile } from "console";
+import bodyParser from 'body-parser';
 import express from "express"
 import { Request, Response } from "express"
 import { Profile } from "./entity/profile.entity.js";
@@ -16,8 +16,7 @@ myDataSource
     })
 
 const app = express()
-app.use(express.json())
-
+const jsonParser = bodyParser.json()
 app.get("/users", async function (req: Request, res: Response) {
     const users = await myDataSource.getRepository(User).find()
     res.json(users)
@@ -30,16 +29,29 @@ app.get("/users/:id", async function (req: Request, res: Response) {
     return res.send(results)
 })
 
-app.post("/users", async function (req: Request, res: Response) {
+app.post("/users",jsonParser, async function (req: Request, res: Response) {
     try{
-    const user = await myDataSource.getRepository(User).create(req.body)
-    const results = await myDataSource.getRepository(User).save(user)
-    return res.send(results)
+        const reqData = req.body
+        const user = new User()
+        user.firstName = reqData.firstName
+        user.lastName = reqData.lastName
+        user.favFoods = reqData.favFoods
+        const profile = new Profile()
+        profile.bio = reqData.bio
+        profile.profileUrl = reqData.profileUrl
+        profile.isAvailable = reqData.isAvailable
+        profile.user = user
+        await myDataSource.getRepository(Profile).save(profile)
+        return res.send({
+            profile
+        })
     }catch(err){
         console.error(err)
-        return res.send(err)
+        return res.status(500).send
     }
 })
+        
+       
 app.post("/profile", async function (req: Request, res: Response) {
     try{
     const profile = await myDataSource.getRepository(Profile).create(req.body)

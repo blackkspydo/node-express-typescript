@@ -12,7 +12,7 @@ export class Profile{
     bio: string
 
     @Column({
-        type: "bool",
+        type: "boolean",
         default: false
     })
     isAvailable: boolean
