@@ -6,7 +6,6 @@ import { Profile } from "./entity/profile.entity.js";
 import { User } from "./entity/user.entity.js"
 import { myDataSource } from "./utils/appDataSource.js"
 
-// establish database connection
 myDataSource
     .initialize()
     .then(() => {
@@ -89,7 +88,7 @@ app.post("/users/photo",jsonParser, async function (req: Request, res: Response)
         if (!url) {
             return res.status(400).send({
                 message: "Bad Request"
-                
+
             })
         }
         const user =    await myDataSource.getRepository(User).findOneBy({
@@ -115,12 +114,13 @@ app.get("/users/:id/photo", async function (req: Request, res: Response) {
         if (!userId) {
             return res.status(400).send("Bad Request")
         }
-        const user = await myDataSource.getRepository(User).findOneBy({
-            id: userId,
-        })
+        const user = await myDataSource.getRepository(User)
         if (user) {
-            const photos = await myDataSource.getRepository(Photo).findBy({
-                user: user
+            const photos = await user.find({
+                relations: ["photos","profile"],
+                where: {
+                    id: userId
+                }
             })
             return res.send(photos)
         }
