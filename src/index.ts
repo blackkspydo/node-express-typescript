@@ -87,7 +87,10 @@ app.post("/users/photo",jsonParser, async function (req: Request, res: Response)
             return res.status(400).send("Bad Request")
         }
         if (!url) {
-            return res.status(400).send("Bad Request")
+            return res.status(400).send({
+                message: "Bad Request"
+                
+            })
         }
         const user =    await myDataSource.getRepository(User).findOneBy({
             id: userId,
