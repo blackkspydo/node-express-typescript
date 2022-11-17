@@ -5,11 +5,8 @@ import { Photo } from "./photo.entity.js"
 @Entity()
 export class User extends Person {
     
-    @Column("simple-array")
-    favFoods: string[]
-    
     @OneToMany(()=>Photo,photo=>photo.user,{cascade:true})
-    photos: Photo[]
+    photos: Relation<Photo[]>
 
     
 }

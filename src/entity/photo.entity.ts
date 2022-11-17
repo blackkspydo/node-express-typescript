@@ -6,9 +6,13 @@ export class Photo{
     @PrimaryGeneratedColumn('uuid')
     id:string
     
-    @Column()
-    url:string
+    @Column({
+        type: "varchar",
+        length: 255,
+        nullable: false,
+    })
+    url!:string
 
-    @ManyToOne(()=>User,user=>user.photos,{cascade:true})
-    user:User
+    @ManyToOne(()=>User,user=>user.photos)
+    user:Relation<User>
 }
