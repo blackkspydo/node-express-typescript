@@ -6,6 +6,6 @@ import { Profile } from "./profile.entity.js";
 @Entity()
 export class User extends Person {
     
-    @OneToMany(()=>Photo,photo=>photo.user,{cascade:true})
+    @OneToMany(()=>Photo,photo=>photo.user)
     photos: Relation<Photo[]>
 }

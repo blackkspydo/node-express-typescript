@@ -1,5 +1,5 @@
 import { Column,PrimaryGeneratedColumn,JoinColumn, Entity, ManyToOne, Relation } from "typeorm";
-import { User } from "./user.entity.js";
+import { User } from "~/entities";
 
 @Entity()
 export class Photo{
@@ -13,6 +13,6 @@ export class Photo{
     })
     url!:string
 
-    @ManyToOne(()=>User,user=>user.photos)
+    @ManyToOne(()=>User,user=>user.photos,{cascade:true})
     user:Relation<User>
 }
