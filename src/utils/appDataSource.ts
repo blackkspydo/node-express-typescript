@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm"
-import { User } from "../entities/user.entity.js.js"
-import { Profile } from "../entities/profile.entity.js.js"
-import { Photo } from "../entities/photo.entity.js.js"
-import { Order } from "../entities/order.entity.js.js";
+import { User } from "~/entities"
+import { Profile } from "~/entities"
+import { Photo } from "~/entities"
+import { Order } from "~/entities"
 import { rootPath } from "./path.js";
 const entities = [User, Profile, Photo, Order]
 

@@ -5,6 +5,17 @@ import { Profile } from "./profile.entity.js";
 
 @Entity()
 export class User extends Person {
+    @Column()
+    createdAt: Date
+
+    @Column()
+    updatedAt: Date
+
+    @Column({
+        type: "boolean",
+        default: false
+    })
+    isVerified: boolean
     
     @OneToMany(()=>Photo,photo=>photo.user)
     photos: Relation<Photo[]>
