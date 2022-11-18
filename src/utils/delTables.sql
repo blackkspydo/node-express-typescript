@@ -1,0 +1,4 @@
+-- SQLite
+DROP TABLE IF EXISTS "photo";
+DROP TABLE IF EXISTS "profile";
+DROP TABLE IF EXISTS "user";

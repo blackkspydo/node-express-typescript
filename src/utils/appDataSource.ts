@@ -3,7 +3,7 @@ import { User } from "../entity/user.entity.js"
 import { Profile } from "../entity/profile.entity.js"
 import { Photo } from "../entity/photo.entity.js"
 import { Order } from "../entity/order.entity.js";
-
+import { rootPath } from "./path.js";
 const entities = [User, Profile, Photo, Order]
 
 
@@ -18,4 +18,12 @@ export const myDataSource = new DataSource({
     logging: true,
     synchronize: true,
     socketPath: '/var/run/mysqld/mysqld.sock'
+})
+
+export const sqliteDataSource = new DataSource({
+    type: "sqlite",
+    database:`${rootPath}/database.sqlite`,
+    entities,
+    logging: true,
+    synchronize: true,
 })

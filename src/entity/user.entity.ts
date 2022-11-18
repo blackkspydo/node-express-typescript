@@ -8,9 +8,4 @@ export class User extends Person {
     
     @OneToMany(()=>Photo,photo=>photo.user,{cascade:true})
     photos: Relation<Photo[]>
-
-    @OneToOne(()=>Profile,{cascade:true})
-    @JoinColumn()
-    profile:Relation<Profile>
-    
 }

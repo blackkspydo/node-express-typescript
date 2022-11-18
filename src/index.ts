@@ -4,26 +4,24 @@ import { Request, Response } from "express"
 import { Photo } from './entity/photo.entity.js';
 import { Profile } from "./entity/profile.entity.js";
 import { User } from "./entity/user.entity.js"
-import { myDataSource } from "./utils/appDataSource.js"
+import { sqliteDataSource } from "./utils/appDataSource.js"
 
-myDataSource
-    .initialize()
-    .then(() => {
-        console.log("Data Source has been initialized!")
-    })
-    .catch((err) => {
-        console.error("Error during Data Source initialization:", err)
+
+sqliteDataSource.initialize().then(()=>{
+        console.log("sqlite Data Source has been initialized!")
+    }).catch((err)=>{
+        console.error("Error during sqlite Data Source initialization:", err)
     })
 
 const app = express()
 const jsonParser = bodyParser.json()
 app.get("/users", async function (req: Request, res: Response) {
-    const users = await myDataSource.getRepository(User).find()
+    const users = await sqliteDataSource.getRepository(User).find()
     res.json(users)
 })
 
 app.get("/users/:id", async function (req: Request, res: Response) {
-    const results = await myDataSource.getRepository(User).findOneBy({
+    const results = await sqliteDataSource.getRepository(User).findOneBy({
         id: req.params.id,
     })
     return res.send(results)
@@ -40,7 +38,7 @@ app.post("/users",jsonParser, async function (req: Request, res: Response) {
         profile.profileUrl = reqData.profileUrl
         profile.isAvailable = reqData.isAvailable
         profile.user = user
-        await myDataSource.getRepository(Profile).save(profile)
+        await sqliteDataSource.getRepository(Profile).save(profile)
         return res.send({
             profile
         })
@@ -53,8 +51,8 @@ app.post("/users",jsonParser, async function (req: Request, res: Response) {
        
 app.post("/profile", async function (req: Request, res: Response) {
     try{
-    const profile = await myDataSource.getRepository(Profile).create(req.body)
-    const results = await myDataSource.getRepository(Profile).save(profile)
+    const profile = await sqliteDataSource.getRepository(Profile).create(req.body)
+    const results = await sqliteDataSource.getRepository(Profile).save(profile)
     return res.send(results)
     }catch(err){
         console.error(err)
@@ -63,16 +61,16 @@ app.post("/profile", async function (req: Request, res: Response) {
 })
 
 app.put("/users/:id", async function (req: Request, res: Response) {
-    const user = await myDataSource.getRepository(User).findOneBy({
+    const user = await sqliteDataSource.getRepository(User).findOneBy({
         id: req.params.id,
     })
-    myDataSource.getRepository(User).merge(user!, req.body)
-    const results = await myDataSource.getRepository(User).save(user!)
+    sqliteDataSource.getRepository(User).merge(user!, req.body)
+    const results = await sqliteDataSource.getRepository(User).save(user!)
     return res.send(results)
 })
 
 app.delete("/users/:id", async function (req: Request, res: Response) {
-    const results = await myDataSource.getRepository(User).delete(req.params.id)
+    const results = await sqliteDataSource.getRepository(User).delete(req.params.id)
     return res.send(results)
 })
 
@@ -91,14 +89,14 @@ app.post("/users/photo",jsonParser, async function (req: Request, res: Response)
 
             })
         }
-        const user =    await myDataSource.getRepository(User).findOneBy({
+        const user =    await sqliteDataSource.getRepository(User).findOneBy({
             id: userId,
         })
         if(user){
         const photo = new Photo()
         photo.url = url
         photo.user = user
-        const results = await myDataSource.getRepository(Photo).save(photo)
+        const results = await sqliteDataSource.getRepository(Photo).save(photo)
         return res.send(results)
         }
         
@@ -114,7 +112,7 @@ app.get("/users/:id/photo", async function (req: Request, res: Response) {
         if (!userId) {
             return res.status(400).send("Bad Request")
         }
-        const user = await myDataSource.getRepository(User)
+        const user = await sqliteDataSource.getRepository(User)
         if (user) {
             const photos = await user.find({
                 relations: ["photos","profile"],
@@ -132,4 +130,4 @@ app.get("/users/:id/photo", async function (req: Request, res: Response) {
 
 
 
-app.listen(5000)
+app.listen(8080)

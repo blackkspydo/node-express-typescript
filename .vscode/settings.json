@@ -14,6 +14,12 @@
             "username": "blackkspydo",
             "password": "0897",
             "socketPath": "/var/run/mysqld/mysqld.sock"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "practicedb",
+            "database": "${workspaceFolder:node-express-typescript}/src/practice.sqlite"
         }
     ]
 }
