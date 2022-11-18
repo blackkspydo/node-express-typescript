@@ -1,9 +1,9 @@
-import bodyParser, { json } from 'body-parser';
+import bodyParser from 'body-parser';
 import express from "express"
 import { Request, Response } from "express"
-import { Photo } from './entity/photo.entity.js';
-import { Profile } from "./entity/profile.entity.js";
-import { User } from "./entity/user.entity.js"
+import { Photo } from "~/entities";
+import { Profile } from "~/entities";
+import { User } from "~/entities";
 import { sqliteDataSource } from "./utils/appDataSource.js"
 
 
