@@ -8,7 +8,9 @@ export class User extends Person {
     @Column()
     createdAt: Date
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     updatedAt: Date
 
     @Column({

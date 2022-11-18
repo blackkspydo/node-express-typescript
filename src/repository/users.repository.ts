@@ -1,4 +1,4 @@
-import { User } from '~/entities';
+import { User } from '../entities/index.js';
 import { sqliteDataSource } from '../utils/appDataSource.js';
 
 export class UserRepository {

@@ -1,18 +1,22 @@
-import { UserRepository } from '~/repository';
+import { UserRepository } from '../repository/index.js';
 import { Request, Response } from 'express';
-import { User } from '~/entities';
+import { User } from '../entities/index.js';
+import { sqliteDataSource } from '../utils/appDataSource.js';
 
 export class UsersController {
-  private userRepository: UserRepository;
 
   async getAllUsers(req: Request, res: Response) {
-    const users = await this.userRepository.getAllUsers();
+    const users = await sqliteDataSource.getRepository(User).find();
     res.json(users);
   }
 
   async getUserById(req: Request, res: Response) {
     const id = req.params.id;
-    const user = await this.userRepository.getUserById(req.params.id);
+    const user = await sqliteDataSource.getRepository(User).find({
+      where: {
+        id: id
+      }
+    });
     res.json(user);
   }
 
@@ -21,12 +25,13 @@ export class UsersController {
     const firstName = data.firstName;
     const lastName = data.lastName;
     const email = data.email;
+    const profileUrl = data.profileUrl;
     const user = new User();
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
     user.createdAt = new Date();
-    const newUser = await this.userRepository.createUser(user);
+    const newUser = await sqliteDataSource.getRepository(User).save(user);
     res.json(newUser);
   }
 
@@ -42,14 +47,14 @@ export class UsersController {
     user.lastName = lastName;
     user.email = email;
     user.updatedAt = new Date();
-    const updatedUser = await this.userRepository.updateUser(user);
+    const updatedUser =  await sqliteDataSource.getRepository(User).save(user);
     res.json(updatedUser);
   }
 
   async deleteUser(req: Request, res: Response) {
     const reqBody = req.body;
     const id = reqBody.id;
-    const deletedUser = await this.userRepository.deleteUser(id);
+    const deletedUser =await sqliteDataSource.getRepository(User).delete(id);
     res.json(deletedUser);
   }
 
@@ -58,7 +63,7 @@ export class UsersController {
     const user = new User();
     user.id = id;
     user.isVerified = true;
-    const updatedUser = await this.userRepository.updateUser(user);
+    const updatedUser = await sqliteDataSource.getRepository(User).delete(id);
     res.json(updatedUser);
   }
 }

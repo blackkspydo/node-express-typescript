@@ -1,6 +1,6 @@
 import express from 'express';
 import { sqliteDataSource } from './utils/appDataSource.js';
-import { usersRouter } from '~/routes';
+import { usersRouter } from './routes/index.js';
 
 sqliteDataSource
   .initialize()
