@@ -14,5 +14,6 @@ router.get('/users/:id', usersController.getUserById);
 router.post('/users', jsonParser, validate(userSchema), usersController.createUser);
 router.put('/users/:id', usersController.updateUser);
 router.delete('/users/:id', usersController.deleteUser);
+router.post('/users/:id/verify', usersController.verifyUser);
 
 export { router as usersRouter };
