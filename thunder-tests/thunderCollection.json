@@ -1,0 +1,17 @@
+[
+  {
+    "_id": "a1e89540-1d07-4f38-8e91-f6f1d6a1994c",
+    "colName": "Node-practice",
+    "created": "2022-11-19T17:41:00.751Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "0e1730f6-f64e-47d3-9874-bf630e883814",
+        "name": "Users",
+        "containerId": "",
+        "created": "2022-11-19T17:41:00.768Z",
+        "sortNum": 10000
+      }
+    ]
+  }
+]

@@ -1,0 +1,114 @@
+[
+  {
+    "_id": "a56ace1f-7134-49e0-82a8-096df8a09de8",
+    "colId": "a1e89540-1d07-4f38-8e91-f6f1d6a1994c",
+    "containerId": "0e1730f6-f64e-47d3-9874-bf630e883814",
+    "name": "getaAllUsers",
+    "url": "{{host}}/api/users",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-11-19T17:41:00.771Z",
+    "modified": "2022-11-19T17:41:00.771Z",
+    "headers": []
+  },
+  {
+    "_id": "c0f9288e-9f41-4fde-83a1-83f0df342808",
+    "colId": "a1e89540-1d07-4f38-8e91-f6f1d6a1994c",
+    "containerId": "0e1730f6-f64e-47d3-9874-bf630e883814",
+    "name": "getUserById",
+    "url": "{{host}}/api/users/{{id}}",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2022-11-19T17:41:00.772Z",
+    "modified": "2022-11-19T17:41:00.772Z",
+    "headers": []
+  },
+  {
+    "_id": "6bc39e6b-3873-4c0e-a107-237dc5aebaed",
+    "colId": "a1e89540-1d07-4f38-8e91-f6f1d6a1994c",
+    "containerId": "0e1730f6-f64e-47d3-9874-bf630e883814",
+    "name": "verifyUser",
+    "url": "{{host}}/api/users/{{id}}/verify",
+    "method": "PUT",
+    "sortNum": 30000,
+    "created": "2022-11-19T17:41:00.773Z",
+    "modified": "2022-11-19T17:41:00.773Z",
+    "headers": []
+  },
+  {
+    "_id": "b53347e9-066c-48a7-9d4b-88e858672717",
+    "colId": "a1e89540-1d07-4f38-8e91-f6f1d6a1994c",
+    "containerId": "0e1730f6-f64e-47d3-9874-bf630e883814",
+    "name": "deleteUser",
+    "url": "{{host}}/api/users/{{id}}",
+    "method": "DELETE",
+    "sortNum": 40000,
+    "created": "2022-11-19T17:41:00.774Z",
+    "modified": "2022-11-19T17:41:00.774Z",
+    "headers": []
+  },
+  {
+    "_id": "845a1631-b827-4d1e-924e-51dbd243fef4",
+    "colId": "a1e89540-1d07-4f38-8e91-f6f1d6a1994c",
+    "containerId": "0e1730f6-f64e-47d3-9874-bf630e883814",
+    "name": "createUser",
+    "url": "{{host}}/api/users",
+    "method": "POST",
+    "sortNum": 50000,
+    "created": "2022-11-19T17:41:00.775Z",
+    "modified": "2022-11-19T17:41:00.775Z",
+    "headers": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"firstName\":\"Kishor\",\n    \"lastName\":\"Upadhyaya\",\n    \"email\":\"kishsor@gmail.com\",\n    \"profileUrl\":\"https://bs.com\"\n}"
+    }
+  },
+  {
+    "_id": "e1a97d95-f7ff-4374-a2bd-0546d5c1c730",
+    "colId": "a1e89540-1d07-4f38-8e91-f6f1d6a1994c",
+    "containerId": "0e1730f6-f64e-47d3-9874-bf630e883814",
+    "name": "updateUser",
+    "url": "{{host}}/api/users/{{id}}",
+    "method": "PUT",
+    "sortNum": 60000,
+    "created": "2022-11-19T17:41:00.776Z",
+    "modified": "2022-11-19T17:41:00.776Z",
+    "headers": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"firstName\":\"Blackk\",\n    \"lastName\":\"Spydo\"\n}"
+    }
+  },
+  {
+    "_id": "19f6cb6f-b518-419a-8512-4079c7fb3428",
+    "colId": "a1e89540-1d07-4f38-8e91-f6f1d6a1994c",
+    "containerId": "0e1730f6-f64e-47d3-9874-bf630e883814",
+    "name": "addProfile",
+    "url": "{{host}}/api/users/{{id}}/profile",
+    "method": "POST",
+    "sortNum": 70000,
+    "created": "2022-11-19T17:41:00.777Z",
+    "modified": "2022-11-19T17:41:00.777Z",
+    "headers": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"profileUrl\":\"https://blackkspydo.com\",\n    \"bio\": \"this is test bio\",\n    \"isAvailable\":true\n}"
+    }
+  },
+  {
+    "_id": "1c88c951-1ab8-4471-9b94-3144ae7cae27",
+    "colId": "a1e89540-1d07-4f38-8e91-f6f1d6a1994c",
+    "containerId": "0e1730f6-f64e-47d3-9874-bf630e883814",
+    "name": "getProfile",
+    "url": "{{host}}/api/users/{{id}}/profile",
+    "method": "GET",
+    "sortNum": 80000,
+    "created": "2022-11-19T17:41:00.778Z",
+    "modified": "2022-11-19T17:41:00.778Z",
+    "headers": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"profileUrl\":\"https://blackkspydo.com\",\n    \"bio\": \"this is test bio\",\n    \"isAvailable\":true\n}"
+    }
+  }
+]

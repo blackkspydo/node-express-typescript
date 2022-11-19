@@ -13,6 +13,6 @@ export class Photo{
     })
     url!:string
 
-    @ManyToOne(()=>User,user=>user.photos,{cascade:true})
+    @ManyToOne(()=>User,user=>user.id,{cascade:true})
     user:Relation<User>
 }

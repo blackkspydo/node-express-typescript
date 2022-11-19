@@ -17,8 +17,8 @@ export class Profile{
     })
     isAvailable: boolean
 
-    @OneToOne(()=>User,{ cascade: true })
+    @OneToOne(()=>User,user=>user.profile,{cascade:true})
     @JoinColumn()
-    user: Relation<User>
+    user:Relation<User>
 
 }

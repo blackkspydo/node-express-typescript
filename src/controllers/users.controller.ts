@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { User } from '../entities/index.js';
+import { User, Profile } from '../entities/index.js';
 import { sqliteDataSource } from '../utils/appDataSource.js';
 
 export class UsersController {
@@ -50,17 +50,66 @@ export class UsersController {
       }
     });
     if (user.length > 0) {
-    user[0].firstName = firstName?? user[0].firstName;
-    user[0].lastName = lastName?? user[0].lastName;
-    user[0].email = email?? user[0].email;
-    user[0].updatedAt = new Date();
-    const updatedUser = await sqliteDataSource.getRepository(User).save(user[0]);
-    res.json(updatedUser);
+      user[0].firstName = firstName ?? user[0].firstName;
+      user[0].lastName = lastName ?? user[0].lastName;
+      user[0].email = email ?? user[0].email;
+      user[0].updatedAt = new Date();
+      const updatedUser = await sqliteDataSource.getRepository(User).save(user[0]);
+      res.json(updatedUser);
     } else {
       return res.json({
         message: 'User not found'
       });
     }
+  }
+  async addProfile(req: Request, res: Response) {
+    const data = req.body;
+    const userId = req.params.id;
+    const profile = new Profile();
+    profile.profileUrl = data.profileUrl;
+    profile.bio = data.bio;
+    profile.isAvailable = data.isAvailable;
+    const user = await sqliteDataSource.getRepository(User).find({
+      where: {
+        id: userId
+      }
+    });
+    if (user.length > 0) {
+      profile.user = user[0];
+      const newProfile = await sqliteDataSource.getRepository(Profile).save(profile);
+      return res.json(newProfile);
+    }
+    return res.json({
+      message: 'User not found'
+    });
+  }
+
+  async getProfile(req: Request, res: Response) {
+    const id = req.params.id;
+    const user = await sqliteDataSource.getRepository(User).find({
+      where: {
+        id
+      }
+    });
+    if (user.length > 0) {
+      const profile = await sqliteDataSource.getRepository(Profile).find({
+        where: {
+          user: user[0]
+        }
+      });
+      if (profile.length > 0) {
+        return res.json({
+          ...profile[0],
+          ...user[0]
+        });
+      }
+      return res.json({
+        message: 'Profile not found'
+      });
+    }
+    return res.json({
+      message: 'User not found'
+    });
   }
 
   async deleteUser(req: Request, res: Response) {
