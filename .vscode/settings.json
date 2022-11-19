@@ -1,25 +1,26 @@
 {
-    "sqltools.useNodeRuntime": true,
-    "sqltools.connections": [
-        {
-            "mysqlOptions": {
-                "authProtocol": "default"
-            },
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 3306,
-            "driver": "MariaDB",
-            "name": "shop",
-            "database": "nodePractice",
-            "username": "blackkspydo",
-            "password": "0897",
-            "socketPath": "/var/run/mysqld/mysqld.sock"
-        },
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "name": "practicedb",
-            "database": "${workspaceFolder:node-express-typescript}/src/practice.sqlite"
-        }
-    ]
+  "sqltools.useNodeRuntime": true,
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MariaDB",
+      "name": "shop",
+      "database": "nodePractice",
+      "username": "blackkspydo",
+      "password": "0897",
+      "socketPath": "/var/run/mysqld/mysqld.sock"
+    },
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "practicedb",
+      "database": "${workspaceFolder:node-express-typescript}/src/practice.sqlite"
+    }
+  ],
+  "thunder-client.saveToWorkspace": true
 }
