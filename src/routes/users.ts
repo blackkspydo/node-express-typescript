@@ -12,8 +12,8 @@ const usersController = new UsersController();
 router.get('/users', usersController.getAllUsers);
 router.get('/users/:id', usersController.getUserById);
 router.post('/users', jsonParser, validate(userSchema), usersController.createUser);
-router.put('/users/:id', usersController.updateUser);
+router.put('/users/:id', jsonParser, usersController.updateUser);
 router.delete('/users/:id', usersController.deleteUser);
-router.post('/users/:id/verify', usersController.verifyUser);
+router.put('/users/:id/verify', usersController.verifyUser);
 
 export { router as usersRouter };

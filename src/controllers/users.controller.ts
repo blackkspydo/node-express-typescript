@@ -15,7 +15,12 @@ export class UsersController {
         id: id
       }
     });
-    res.json(user);
+    if (!user.length) {
+      return res.json({
+        message: 'User not found'
+      });
+    }
+    return res.json(user);
   }
 
   async createUser(req: Request, res: Response) {
@@ -39,14 +44,23 @@ export class UsersController {
     const firstName = data.firstName;
     const lastName = data.lastName;
     const email = data.email;
-    const user = new User();
-    user.id = id;
-    user.firstName = firstName;
-    user.lastName = lastName;
-    user.email = email;
-    user.updatedAt = new Date();
-    const updatedUser = await sqliteDataSource.getRepository(User).save(user);
+    const user = await sqliteDataSource.getRepository(User).find({
+      where: {
+        id
+      }
+    });
+    if (user.length > 0) {
+    user[0].firstName = firstName?? user[0].firstName;
+    user[0].lastName = lastName?? user[0].lastName;
+    user[0].email = email?? user[0].email;
+    user[0].updatedAt = new Date();
+    const updatedUser = await sqliteDataSource.getRepository(User).save(user[0]);
     res.json(updatedUser);
+    } else {
+      return res.json({
+        message: 'User not found'
+      });
+    }
   }
 
   async deleteUser(req: Request, res: Response) {

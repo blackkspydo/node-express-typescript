@@ -19,8 +19,10 @@ npm run dev
 The workspace contains two folders by default, where:
 
 ---
+
 - `src`: the folder to maintain sources
 - `dist`: the folder to maintain build files
+
 ---
 
     ```
